@@ -4,7 +4,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace UWP_App1
+namespace BusinessCalendar
 {
     sealed class StringToImageConverter : IValueConverter
     {

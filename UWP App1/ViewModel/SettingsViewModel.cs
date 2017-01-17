@@ -2,10 +2,10 @@
 
 using GalaSoft.MvvmLight.Views;
 
-using UWP_App1.Model;
-using UWP_App1.Service;
+using BusinessCalendar.Models;
+using BusinessCalendar.Service;
 
-namespace UWP_App1.ViewModel
+namespace BusinessCalendar.ViewModel
 {
     public sealed class SettingsViewModel : ViewModel
     {

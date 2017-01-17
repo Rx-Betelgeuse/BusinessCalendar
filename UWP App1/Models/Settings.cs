@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 using Windows.Storage;
 
-namespace UWP_App1.Model
+namespace BusinessCalendar.Models
 {
-    sealed class Settings : ISettings
+    public sealed class Settings : ISettings
     {
         private readonly ApplicationDataContainer _container;
         public Settings(ApplicationDataContainer container)

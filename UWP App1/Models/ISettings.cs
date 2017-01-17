@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UWP_App1.Model
+namespace BusinessCalendar.Models
 {
     public interface ISettings
     {

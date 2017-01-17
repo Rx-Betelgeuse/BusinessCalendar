@@ -1,19 +1,18 @@
 ﻿using Windows.UI.Xaml.Controls;
 
 using GalaSoft.MvvmLight.Ioc;
-
-using UWP_App1.Service;
+using WinRTXamlToolkit.Controls.Extensions;
+using BusinessCalendar.Service;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace UWP_App1.Controls
+namespace BusinessCalendar.Controls
 {
     public sealed partial class NavControl : UserControl
     {
         public NavControl()
         {
             this.InitializeComponent();
-
             // TODO - MAGIC
             // there is a chicken and egg problem between the instantiation of the nav service in ViewModelLocator
             // and the creation of our embedded navigation frame (this.MainFrame)

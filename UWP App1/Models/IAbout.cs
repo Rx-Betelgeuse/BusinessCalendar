@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UWP_App1.Model
+namespace BusinessCalendar.Models
 {
     public interface IAbout
     {

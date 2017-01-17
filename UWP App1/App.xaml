@@ -1,9 +1,9 @@
 ﻿<Application
-    x:Class="UWP_App1.App"
+    x:Class="BusinessCalendar.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_App1"
-    xmlns:vm="using:UWP_App1.ViewModel" 
+    xmlns:local="using:BusinessCalendar"
+    xmlns:vm="using:BusinessCalendar.ViewModel" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"      
    >
     <Application.Resources>

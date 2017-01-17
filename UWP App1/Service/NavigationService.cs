@@ -9,7 +9,7 @@ using Windows.UI.Core;
 
 using GalaSoft.MvvmLight.Views;
 
-namespace UWP_App1.Service
+namespace BusinessCalendar.Service
 {
     sealed class NavigationService : INavigationService, INavigationService2
     {
@@ -93,11 +93,7 @@ namespace UWP_App1.Service
 
         private void OnNavigated()
         {
-            var e = Navigated;
-            if (e != null)
-            {
-                e(this, EventArgs.Empty);
-            }
+            Navigated?.Invoke(this, EventArgs.Empty);
         }
     }
 }

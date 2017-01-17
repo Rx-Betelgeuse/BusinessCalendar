@@ -1,15 +1,125 @@
 ﻿<Page
-    x:Class="UWP_App1.HomePage"
+    x:Class="BusinessCalendar.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:UWP_App1"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
+    xmlns:local="using:BusinessCalendar"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    mc:Ignorable="d" Loaded="Page_LoadedAsync">
+    <Pivot Name="pivot">
+        <PivotItem Header="Календар">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="1" Text="Календар" Style="{StaticResource TitleTextBlockStyle}" Margin="12,0,0,0"/>
+                <CalendarView x:Name="calendar"  Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,50,0,0" SelectedDatesChanged="Сalendar_SelectedDatesChanged"/>
 
-    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <TextBlock Text="UWP_App1" Style="{StaticResource TitleTextBlockStyle}" Margin="12,0,0,0"/>
-        
-        <!-- TODO - This is the main starting UI for your app -->
-    </StackPanel>
+                <TextBlock Grid.Column="2" Text="Список справ на день:" Style="{StaticResource ResourceKey=TitleTextBlockStyle}" VerticalAlignment="Top" Margin="0,15,0,0"/>
+                <ListView IsMultiSelectCheckBoxEnabled="True" Grid.Column="2" HorizontalAlignment="Stretch"  Name="eventsList" Margin="0,50,0,90" DoubleTapped="eventsList_DoubleTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Title}" Style="{StaticResource HeaderTextBlockStyle}"/>
+                                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextBlockStyle}"/>
+                                <TextBlock>
+                                    <Run Text="{Binding StartDate}"/>
+                                    <Run Text=" "/>
+                                    <Run Text="{Binding FinishDate}"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid Grid.Column="2" VerticalAlignment="Bottom" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Name="Add" Content="&#xE109;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource TextBlockButtonStyle}" FontFamily="Segoe MDL2 Assets" FontSize="35" Click="Add_Click_1"/>
+                    <Button Grid.Column="1" Name="Delete" Content="&#xE107;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource TextBlockButtonStyle}" FontFamily="Segoe MDL2 Assets" FontSize="35" Click="Delete_Click"/>
+                    <Button Grid.Column="2" Name="Print" Content="&#xE2F6;" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource TextBlockButtonStyle}" FontFamily="Segoe MDL2 Assets" FontSize="35" Click="Print_ClickAsync" />
+                </Grid>
+            </Grid>
+        </PivotItem>
+        <PivotItem Header="Перегляд">
+            <Grid>
+                <AppBar IsHoldingEnabled="True" IsOpen="True">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <AppBarButton Name="Save" Content="&#xE105;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockButtonStyle}" FontSize="40"  HorizontalAlignment="Center" Click="Save_ClickAsync" Margin="30,10,30,10"/>
+                        <AppBarButton  Name="Clear" Content="&#xE107;" FontFamily="Segoe MDL2 Assets" Style="{StaticResource TextBlockButtonStyle}" FontSize="40"  HorizontalAlignment="Center" Margin="30,10,30,10" Click="Clear_Click"/>
+                    </StackPanel>
+                </AppBar>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" Padding="0,20,0,20">
+                        <TextBox Name="title" PlaceholderText="Подія" Margin="10"/>
+                        <TextBox Name="descriptioin" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Опис" Margin="10"  Height="100"/>
+                        <TextBox Name="Adress" AcceptsReturn="True" TextWrapping="Wrap" PlaceholderText="Адреса" Margin="10"/>
+                        <DatePicker Name="date" HorizontalAlignment="Stretch" Header="Дата" Margin="10,20,10,0"/>
+                        <Grid Margin="10,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TimePicker Grid.Column="0" ClockIdentifier="24HourClock" Name="startTime"  HorizontalAlignment="Stretch" MinWidth="190" Header="Початок"  Margin="0,20,10,0" TimeChanged="startTime_TimeChanged"/>
+                            <TimePicker Grid.Column="1" ClockIdentifier="24HourClock" Name="finalTime" HorizontalAlignment="Right" MinWidth="190" Header="Закінчення" Margin="0,20,10,0" TimeChanged="finalTime_TimeChanged"/>
+                        </Grid>
+                        <Grid HorizontalAlignment="Stretch" Margin="10,30,10,30">
+                            <Grid.RowDefinitions >
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <AutoSuggestBox Name="Person" PlaceholderText="З ким планується зустріч?" QueryIcon="Find" Margin="0,10" TextChanged="AutoSuggestBox_TextChanged" QuerySubmitted="AutoSuggestBox_QuerySubmitted" SuggestionChosen="AutoSuggestBox_SuggestionChosen" DisplayMemberPath="DisplayMember"/>
+                            <RelativePanel
+                        x:Name="ContactDetails"
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Visibility="Collapsed">
+                                <Ellipse
+                            x:Name="ContactBackground"
+                            Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                            Height="48"
+                            Width="48"
+                            Margin="0,8,0,8"/>
+                                <FontIcon
+                            Glyph="&#xE77B;"
+                            FontSize="20"
+                            Margin="0,8,0,8"
+                            RelativePanel.AlignHorizontalCenterWith="ContactBackground"
+                            RelativePanel.AlignVerticalCenterWith="ContactBackground" />
+                                <TextBlock
+                            x:Name="ContactName"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+                            RelativePanel.RightOf="ContactBackground"
+                            Margin="12,11,12,0" />
+                            </RelativePanel>
+                            <TextBlock
+                        x:Name="NoResults"
+                        Text="Нікого не знайдено"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Grid.Row="2"
+                        Visibility="Collapsed" />
+                        </Grid>
+                        <ComboBox Name="Remindings" Margin="10" PlaceholderText="Оберіть нагадування зі списку" HorizontalAlignment="Stretch">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <maps:MapControl Margin="0,30,0,0" Grid.Column="1" x:Name="map" HorizontalAlignment="Stretch"  ZoomLevel="20" MapServiceToken="ETrpT0gE4beyxF1AWoWW~Ez8hg7qdGEQMGYxQX7k_Aw~AhtNfUM830_thsZLCKM5bs0x9Y3sJ5QQCg6uJGsbUi-2AySRImt1MzM0TvjHyYA_" MapElementClick="map_MapElementClickAsync" MapTapped="map_MapTappedAsync"/>
+                </Grid>
+            </Grid>
+        </PivotItem>
+    </Pivot>
 </Page>

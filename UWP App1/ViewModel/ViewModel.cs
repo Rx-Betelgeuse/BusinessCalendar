@@ -2,9 +2,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Threading;
 
-using UWP_App1.Service;
+using BusinessCalendar.Service;
 
-namespace UWP_App1.ViewModel
+namespace BusinessCalendar.ViewModel
 {
     public abstract class ViewModel : ViewModelBase
     {

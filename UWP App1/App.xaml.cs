@@ -1,28 +1,17 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.Storage;
+using Microsoft.EntityFrameworkCore;
 
-using GalaSoft.MvvmLight.Views;
-using GalaSoft.MvvmLight.Ioc;
+using BusinessCalendar.Models;
+using ModelsLibrary.Models;
 
-using UWP_App1.Model;
-
-namespace UWP_App1
+namespace BusinessCalendar
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
@@ -42,6 +31,10 @@ namespace UWP_App1
             this.InitializeComponent();
             this.RequestedTheme = LoadApplicationTheme();
             this.Suspending += OnSuspending;
+            using (var db = new BusinessCalendarContext())
+            {                
+                db.Database.Migrate();
+            }
         }
 
         private ApplicationTheme LoadApplicationTheme()

@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using System.Windows.Input;
 
-namespace UWP_App1.Controls
+namespace BusinessCalendar.Controls
 {
     public static class ItemClickCommand
     {

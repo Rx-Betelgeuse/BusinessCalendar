@@ -3,7 +3,7 @@ using Windows.UI.Xaml.Controls;
 
 using WinRTXamlToolkit.Interactivity;
 
-namespace UWP_App1
+namespace BusinessCalendar
 {
     /// <summary>
     /// Behavior which enables showing/hiding of a pivot item`

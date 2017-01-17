@@ -6,9 +6,9 @@ using Windows.System;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Threading;
 
-using UWP_App1.Service;
+using BusinessCalendar.Service;
 
-namespace UWP_App1.ViewModel
+namespace BusinessCalendar.ViewModel
 {
     public class MainViewModel : ViewModel
     {
@@ -19,9 +19,23 @@ namespace UWP_App1.ViewModel
             {
                 new NavItem()
                 {
-                    Text = "Home",
-                    ButtonText = "\uE80F",
+                    Text = "Події",
+                    ButtonText = "\uE162",
                     Command = new RelayCommand(() => NavigateTo("Home"), () => ActivePage != "Home" )
+                },
+
+                new NavItem()
+                {
+                    Text = "Люди",
+                    ButtonText = "\uE13D",
+                    Command = new RelayCommand(() => NavigateTo("People"), () => ActivePage != "People" )
+                },
+
+                 new NavItem()
+                {
+                    Text = "Нагадування",
+                    ButtonText = "\uEA8F",
+                    Command = new RelayCommand(() => NavigateTo("Reminding"), () => ActivePage != "Reminding" )
                 }
             };
 

@@ -2,7 +2,7 @@
 
 using GalaSoft.MvvmLight.Command;
 
-namespace UWP_App1
+namespace BusinessCalendar
 {
     public sealed class NavItem : INotifyPropertyChanged
     {

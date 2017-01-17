@@ -5,10 +5,10 @@ using GalaSoft.MvvmLight.Views;
 
 using Microsoft.Practices.ServiceLocation;
 
-using UWP_App1.Model;
-using UWP_App1.Service;
+using BusinessCalendar.Models;
+using BusinessCalendar.Service;
 
-namespace UWP_App1.ViewModel
+namespace BusinessCalendar.ViewModel
 {
     public class ViewModelLocator
     {
@@ -19,10 +19,11 @@ namespace UWP_App1.ViewModel
             // setup app services
             SimpleIoc.Default.Register<INavigationService2>(() =>
             {
-                var nav = new UWP_App1.Service.NavigationService();
+                var nav = new BusinessCalendar.Service.NavigationService();
                 nav.Configure("Home", typeof(HomePage));
+                nav.Configure("People", typeof(PersonsPage));
                 nav.Configure("Settings", typeof(SettingsPage));
-
+                nav.Configure("Reminding", typeof(RemindingPage));
                 return nav;
             });
             SimpleIoc.Default.Register<IDialogService, DialogService>();

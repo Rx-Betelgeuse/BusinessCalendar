@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Windows.ApplicationModel;
 
-namespace UWP_App1.Model
+namespace BusinessCalendar.Models
 {
     sealed class About : IAbout
     {
